@@ -1,7 +1,14 @@
 {
-	"folders": [
-		{
-			"path": ".."
-		}
-	]
+    "folders": [
+        {
+            "path": ".."
+        }
+    ],
+    "settings": {
+        "prettier.embeddedLanguageFormatting": "off",
+        "prettier.enable": false,
+        "html.format.enable": false,
+        "beautify.config": "",
+        "json.format.enable": false
+    }
 }
