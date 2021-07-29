@@ -1,3 +1,64 @@
 {% extends 'base.html' %} {% block content %} 
-Welcome to DogeTwitter!
+<div class='row text-center'>
+   <div class="col">
+       <h1>Welcome to DogeTwitter!</h1>
+   </div> 
+</div>
+<div class="row mb-3">
+    <div class="col-md-4 mx-auto col-10">
+        <form class="form" method="POST" action="/create-tweet">
+            {% csrf_token %}
+            <input type="hidden" value="/" name='next'/>
+            <textarea class="form-control" name="content" placeholder="Your Tweet..."></textarea>
+            <button type="submit" class="btn btn-primary m-3">Tweet</button>
+        </form>
+         
+    </div>
+
+</div>
+
+<div class="row" id="tweet">
+    Loading...
+</div>
+
+<script>
+    function LikeBtn(tweet){
+        console.log(tweet)
+        let button=document.createElement('button')
+        button.classList.add('btn', 'btn-primary', 'btn-sm')
+        button.innerHTML=tweet.likes+' Likes'
+        button.addEventListener('click', () => (
+            handleClick(tweet)))
+        return button
+    }
+    function handleClick(tweet){
+        console.log(tweet.likes)
+    }
+    const tweetElement=document.getElementById("tweet");
+    // tweetElement.innerHTML="Loading...";
+    const xhr = new XMLHttpRequest();
+    const method = 'GET' //"POST"
+    const url = '/tweets'
+    const responseType = "json"
+    xhr.responseType=responseType
+    xhr.open(method, url)
+    xhr.onload=function(){
+        const serverResponse =xhr.response;
+        var listItems=serverResponse.response
+        tweetElement.innerHTML=""
+        listItems.map((tweet) => {
+            // console.log(tweet)
+            let elementSuper=document.createElement('div')
+            let element=document.createElement('h1')
+            elementSuper.classList.add("tweetText","col-12","mb-4","border","py-3","rounded")
+            element.innerHTML=tweet.content
+            elementSuper.appendChild(element)
+            elementSuper.appendChild(LikeBtn(tweet))
+            tweetElement.appendChild(elementSuper)
+        })
+    }
+    xhr.send();
+
+</script>
+
  {% endblock content %}

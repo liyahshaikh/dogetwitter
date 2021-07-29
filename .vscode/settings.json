@@ -1,0 +1,7 @@
+{
+    "prettier.embeddedLanguageFormatting": "off",
+    "prettier.enable": false,
+    "prettier.htmlWhitespaceSensitivity": "ignore",
+    "beautify.ignore": "",
+    "html.format.preserveNewLines": false
+}
