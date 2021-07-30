@@ -6,7 +6,7 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-4 mx-auto col-10">
-        <form class="form" method="POST" action="/create-tweet">
+        <form class="form" id="tweet-create-form" method="POST" action="/create-tweet">
             {% csrf_token %}
             <input type="hidden" value="/" name='next'/>
             <textarea class="form-control" name="content" placeholder="Your Tweet..."></textarea>
@@ -34,9 +34,15 @@
     function handleClick(tweet){
         console.log(tweet.likes)
     }
-    const tweetElement=document.getElementById("tweet");
-    // tweetElement.innerHTML="Loading...";
-    const xhr = new XMLHttpRequest();
+    const handleTweetCreateFormDidSubmit = (event) =>{
+        event.preventDefault();
+        console.log(event)
+    }
+    const tweetFormEl=document.getElementById("tweet-create-form")
+    tweetFormEl.addEventListener('submit', handleTweetCreateFormDidSubmit)
+
+    const loadTweets=(tweetElement)=>{
+        const xhr = new XMLHttpRequest();
     const method = 'GET' //"POST"
     const url = '/tweets'
     const responseType = "json"
@@ -58,6 +64,12 @@
         })
     }
     xhr.send();
+
+    }
+    const tweetEl=document.getElementById("tweet");
+    // tweetElement.innerHTML="Loading...";
+    loadTweets(tweetEl);
+    
 
 </script>
 
